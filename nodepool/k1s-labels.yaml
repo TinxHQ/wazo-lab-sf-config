@@ -1,0 +1,7 @@
+# !!! MANAGED BY ANSIBLE & CONSUL-TEMPLATE !!!
+---
+labels:
+  - name: pod-debian-10
+  - name: pod-node-12
+  - name: pod-python-27
+
