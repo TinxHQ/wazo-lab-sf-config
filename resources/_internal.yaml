@@ -1,0 +1,34 @@
+# This file is managed by ansible, do not edit directly
+---
+resources:
+  tenants:
+    local:
+      description: "The local tenant."
+      url: "https://sf.lab.wazo.cloud/manage"
+      default-connection: github.com
+      tenant-options:
+        zuul/report-build-page: True
+        zuul/max-job-timeout: 10800
+
+  connections:
+    github.com:
+      base-url: "https://github.com"
+      type: github
+      github-app-name: wazo-lab-sf
+      github-label: mergeit
+    opendev.org:
+      base-url: "https://opendev.org"
+      type: git
+
+  projects:
+    internal:
+      tenant: local
+      description: Internal configuration project
+      source-repositories:
+        - TinxHQ/wazo-lab-sf-config:
+            zuul/config-project: True
+        - TinxHQ/wazo-lab-sf-jobs
+        - zuul/zuul-jobs:
+            connection: opendev.org
+            zuul/include: [job]
+            zuul/shadow: TinxHQ/wazo-lab-sf-jobs
